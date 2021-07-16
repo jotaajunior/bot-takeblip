@@ -1,19 +1,12 @@
 import { Router } from 'express'
-import {
-  fetchRespositories,
-  filterRepositories,
-  convertRepositories,
-} from './lib.js'
+import { fetchRespositories, filterRepositories, asCarousel } from './lib.js'
 
 export const routes = Router()
 
 routes.get('/', async (_, response) => {
-  const repositories = await fetchRespositories()
+  const output = await fetchRespositories()
     .then(filterRepositories)
-    .then(convertRepositories)
+    .then(asCarousel)
 
-  return response.status(200).json({
-    itemType: 'application/vnd.lime.document-select+json',
-    items: repositories,
-  })
+  return response.status(200).json(output)
 })

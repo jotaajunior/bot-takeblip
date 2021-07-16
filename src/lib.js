@@ -46,14 +46,13 @@ export function filterRepositories(repositories) {
 }
 
 /**
- * Takes a list of repositories and return a list
- * containing only the necessary properties for the
- * TakeBlip chatbot
+ * Takes a list of repositories and return them as a carousel
+ * as specified by TakeBlip documentation
  *
- * @param {array} repositories The repositories
+ * @param {object} repositories The repositories
  */
-export function convertRepositories(repositories) {
-  return repositories.map((repository) => ({
+export function asCarousel(repositories) {
+  const items = repositories.map((repository) => ({
     header: {
       type: 'application/vnd.lime.media-link+json',
       value: {
@@ -65,4 +64,9 @@ export function convertRepositories(repositories) {
       },
     },
   }))
+
+  return {
+    itemType: 'application/vnd.lime.document-select+json',
+    items,
+  }
 }
