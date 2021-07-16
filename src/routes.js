@@ -3,7 +3,6 @@ import {
   fetchRespositories,
   filterRepositories,
   convertRepositories,
-  fetchAvatar,
 } from './lib.js'
 
 export const routes = Router()
@@ -12,10 +11,9 @@ routes.get('/', async (_, response) => {
   const repositories = await fetchRespositories()
     .then(filterRepositories)
     .then(convertRepositories)
-  const avatar_url = await fetchAvatar()
 
   return response.status(200).json({
-    avatar_url,
-    repositories,
+    itemType: 'application/vnd.lime.document-select+json',
+    items: repositories,
   })
 })
