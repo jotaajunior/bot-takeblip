@@ -58,3 +58,14 @@ export function convertRepositories(repositories) {
     description: repository.description,
   }))
 }
+
+/**
+ * Fetch the avatar URL of the user
+ *
+ * @returns {string} The avatar
+ */
+export async function fetchAvatar() {
+  const { data } = await github.get(USER)
+
+  return data.avatar_url
+}
