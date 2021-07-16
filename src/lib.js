@@ -54,18 +54,15 @@ export function filterRepositories(repositories) {
  */
 export function convertRepositories(repositories) {
   return repositories.map((repository) => ({
-    name: repository.name,
-    description: repository.description,
+    header: {
+      type: 'application/vnd.lime.media-link+json',
+      value: {
+        title: repository.name,
+        text: repository.description,
+        type: 'image/png',
+        uri: repository.owner.avatar_url,
+        aspectRatio: '1:1',
+      },
+    },
   }))
-}
-
-/**
- * Fetch the avatar URL of the user
- *
- * @returns {string} The avatar
- */
-export async function fetchAvatar() {
-  const { data } = await github.get(USER)
-
-  return data.avatar_url
 }
